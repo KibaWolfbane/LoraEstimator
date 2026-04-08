@@ -29,8 +29,8 @@ def calculator(size, repeats, batch, ga):
      }
      effective_multiplier = batch * ga
      image_count_total = size * repeats
-     results["min_recommended_epochs"] = int(math.ceil(((ACCEPTABLE_MIN * batch * ga)/ (size * repeats)) / effective_multiplier))
-     results["max_recommended_epochs"] = int(math.ceil(((TOTAL_MAX * batch * ga) / (size * repeats)) / effective_multiplier))
+     results["min_recommended_epochs"] = int(math.ceil(((ACCEPTABLE_MIN * batch * ga) / image_count_total) / effective_multiplier))
+     results["max_recommended_epochs"] = int(math.ceil(((TOTAL_MAX * batch * ga) / image_count_total) / effective_multiplier))
      results["min_estimated_steps"] = int(image_count_total * results["min_recommended_epochs"])
      results["max_estimated_steps"] = int(image_count_total * results["max_recommended_epochs"])
      results["min_effective_steps"] = int((image_count_total * results["min_recommended_epochs"]) / effective_multiplier)
@@ -39,6 +39,7 @@ def calculator(size, repeats, batch, ga):
 
 # Simple TUI-like prompt
 def tui():
+    clearscreen()
     print(f"##########################")
     print(f"# Kiba's Lora Calculator #")
     print(f"##########################")
@@ -74,8 +75,9 @@ def tui():
     # Final result
     clearscreen()
     finalresults = calculator(setsize, imgrepeats, batchsize, gasteps)
-    print(f"###############################")
-    print(f"Here's your recommended params:")
+    print(f"###################################")
+    print(f"# Here's your recommended params: #")
+    print(f"###################################")
     print(f"\n")
     print(f"Given image set count", setsize)
     print(f"Given image repeats:", imgrepeats)
